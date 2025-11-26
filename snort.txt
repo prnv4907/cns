@@ -1,0 +1,18 @@
+sudo apt install snort
+
+sudo nano /etc/snort/rules/dos.rules
+In this file write this rule =
+alert icmp any any -> $HOME_NET any (msg:"Dos attack detected"; detection_filter: track by_src, count 1, seconds 5; sid:10001;)
+
+sudo snort -T -c /etc/snort/snort.conf (you should get successful msg)
+
+sudo snort -i lo -c /etc/snort/snort.conf (you run this command)
+--------------------------------------------------------------------------------------------------
+Open other terminal :
+ping 127.0.0.1
+
+----------------------------------------------------------------
+Open other terminal :
+cd /var/log/snort
+cat snort.alert.fast
+You should see the logs - Dos attack detected
